@@ -24,7 +24,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=Manrope:wght@300..800&display=swap">
-  <link rel="stylesheet" href="assets/css/style.css">
+  <!-- The v=dev tags below become the commit id on deploy (.github/workflows/deploy.yml), so a new page never
+       runs with old CSS/JS from the browser cache. Add new modules under assets/js to the import map. -->
+  <link rel="stylesheet" href="assets/css/style.css?v=dev">
   <link rel="preload" as="image" href="media/film/p-001.webp" media="(max-aspect-ratio: 1/1)">
   <link rel="preload" as="image" href="media/film/l-001.webp" media="(min-aspect-ratio: 1/1)">
   <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
@@ -36,11 +38,28 @@
     {
       "imports": {
         "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js",
-        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/",
+        "./assets/js/data.js": "./assets/js/data.js?v=dev",
+        "./assets/js/embers.js": "./assets/js/embers.js?v=dev",
+        "./assets/js/film.js": "./assets/js/film.js?v=dev",
+        "./assets/js/fluid.js": "./assets/js/fluid.js?v=dev",
+        "./assets/js/hero.js": "./assets/js/hero.js?v=dev",
+        "./assets/js/ingredients.js": "./assets/js/ingredients.js?v=dev",
+        "./assets/js/media.js": "./assets/js/media.js?v=dev",
+        "./assets/js/menu.js": "./assets/js/menu.js?v=dev",
+        "./assets/js/qr.js": "./assets/js/qr.js?v=dev",
+        "./assets/js/reserve.js": "./assets/js/reserve.js?v=dev",
+        "./assets/js/story.js": "./assets/js/story.js?v=dev",
+        "./assets/js/susan.js": "./assets/js/susan.js?v=dev",
+        "./assets/js/toss-data.js": "./assets/js/toss-data.js?v=dev",
+        "./assets/js/toss.js": "./assets/js/toss.js?v=dev",
+        "./assets/js/tour.js": "./assets/js/tour.js?v=dev",
+        "./assets/js/tray.js": "./assets/js/tray.js?v=dev",
+        "./assets/js/util.js": "./assets/js/util.js?v=dev"
       }
     }
   </script>
-  <script type="module" src="assets/js/main.js"></script>
+  <script type="module" src="assets/js/main.js?v=dev"></script>
 </head>
 <body>
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">

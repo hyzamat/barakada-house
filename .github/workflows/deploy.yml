@@ -19,6 +19,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Stamp asset versions
+        # Fresh CSS/JS URLs on every deploy, so browsers never mix a new page with cached old files.
+        run: sed -i "s/?v=dev/?v=${GITHUB_SHA::8}/g" site/index.html
+
       - name: Publish site/ to gh-pages
         uses: peaceiris/actions-gh-pages@v4
         with:
