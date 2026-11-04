@@ -1,13 +1,13 @@
-# Renders tools/og-card.html to site/og-image.jpg (the WhatsApp / social link-preview image).
+# Renders tools/og-card.html to site/og-card.jpg (the WhatsApp / social link-preview image, 1200x675).
 # Usage: powershell -ExecutionPolicy Bypass -File tools\build_og.ps1
 $root = Split-Path -Parent $PSScriptRoot
 $edge = "${env:ProgramFiles(x86)}\Microsoft\Edge\Application\msedge.exe"
 $card = "file:///" + ((Join-Path $PSScriptRoot 'og-card.html') -replace '\\', '/')
 $png = Join-Path $env:TEMP 'barkada-og.png'
-$jpg = Join-Path $root 'site\og-image.jpg'
+$jpg = Join-Path $root 'site\og-card.jpg'
 
 & $edge --headless=new --disable-gpu --hide-scrollbars --force-device-scale-factor=1 `
-  --window-size=1200,630 --virtual-time-budget=8000 "--screenshot=$png" $card | Out-Null
+  --window-size=1200,675 --virtual-time-budget=8000 "--screenshot=$png" $card | Out-Null
 
 Add-Type -AssemblyName System.Drawing
 $img = [System.Drawing.Image]::FromFile($png)
