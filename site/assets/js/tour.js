@@ -10,6 +10,8 @@ export function initTour({ story, menu }) {
   const text = $('[data-tour-text]', hud);
   const bar = $('[data-tour-bar]', hud);
   const ghost = $('[data-tour-cursor]');
+  // The QR card stays pinned on the left for the whole tour (desktop only, see CSS).
+  const qrPin = $('[data-tour-qr]');
   const html = document.documentElement;
   const pos = { x: innerWidth / 2, y: innerHeight * 0.6 };
   let active = false, stopNow = null, stopped = null;
@@ -111,7 +113,7 @@ export function initTour({ story, menu }) {
   }
 
   // Keep the HUD and finger usable on top of an open dialog by moving them inside it.
-  const mount = (el = document.body) => el.append(hud, ghost);
+  const mount = (el = document.body) => el.append(hud, ghost, qrPin);
   const sectionTop = (id) => $(id);
 
   // ----- The route -----
@@ -303,7 +305,7 @@ export function initTour({ story, menu }) {
   $$('[data-tour-start]').forEach((b) => b.addEventListener('click', start));
   $('[data-tour-stop]', hud).addEventListener('click', stop);
   // Any real input from the visitor ends the tour (the tour's own events are untrusted).
-  const userStop = (e) => { if (active && e.isTrusted && !hud.contains(e.target)) stop(); };
+  const userStop = (e) => { if (active && e.isTrusted && !hud.contains(e.target) && !qrPin.contains(e.target)) stop(); };
   addEventListener('pointerdown', userStop, true);
   addEventListener('wheel', userStop, { passive: true });
   addEventListener('touchstart', userStop, { passive: true });

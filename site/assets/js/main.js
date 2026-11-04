@@ -10,6 +10,7 @@ import { initMenu } from './menu.js';
 import { initStory } from './story.js';
 import { initTray } from './tray.js';
 import { initReserve } from './reserve.js';
+import { initQr } from './qr.js';
 
 const reduce = mq.reduce.matches;
 
@@ -46,6 +47,7 @@ function boot() {
   api.menu = initMenu({ openStory: api.story.open, addToTray: api.tray.add });
   initSusan({ openStory: api.story.open, openDish: api.menu.openDish, addToTray: api.tray.add });
   initReserve();
+  initQr();
   initTour({ story: api.story, menu: api.menu });
   api.tray.refresh();
   initEmbers($('[data-embers]'), $('#fire'));
