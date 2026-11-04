@@ -1,0 +1,10 @@
+# Keep the raw source footage folders out of git; only the site, its launcher and tools are tracked.
+/*
+!/.gitignore
+!/site/
+!/tools/
+!/Start Barkada House.bat
+
+Thumbs.db
+desktop.ini
+.DS_Store

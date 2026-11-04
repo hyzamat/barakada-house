@@ -1,0 +1,468 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Barkada House — Filipino Kitchen & Charcoal Grill</title>
+  <meta name="description" content="Barkada House is a premium Filipino kitchen and charcoal grill. Crispy pata, kare-kare, bulalo and inasal, made for sharing.">
+  <meta name="theme-color" content="#0c0907">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=Manrope:wght@300..800&display=swap">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="preload" as="image" href="media/film/p-001.webp" media="(max-aspect-ratio: 1/1)">
+  <link rel="preload" as="image" href="media/film/l-001.webp" media="(min-aspect-ratio: 1/1)">
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/Flip.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/lenis@1.3.4/dist/lenis.min.js"></script>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+      }
+    }
+  </script>
+  <script type="module" src="assets/js/main.js"></script>
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-sun" viewBox="0 0 48 48">
+        <circle cx="24" cy="24" r="7.2" fill="currentColor"/>
+        <g fill="currentColor">
+          <path d="M24 2.5l2.2 10.3h-4.4z"/><path d="M24 45.5l-2.2-10.3h4.4z"/>
+          <path d="M2.5 24l10.3-2.2v4.4z"/><path d="M45.5 24l-10.3 2.2v-4.4z"/>
+          <path d="M8.8 8.8l8.8 5.7-3.1 3.1z"/><path d="M39.2 39.2l-8.8-5.7 3.1-3.1z"/>
+          <path d="M39.2 8.8l-5.7 8.8-3.1-3.1z"/><path d="M8.8 39.2l5.7-8.8 3.1 3.1z"/>
+        </g>
+      </symbol>
+      <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></symbol>
+      <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></symbol>
+      <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></symbol>
+      <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></symbol>
+      <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></symbol>
+      <symbol id="i-tray" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 17h18"/><path d="M5 17a7 7 0 0 1 14 0"/><path d="M12 8V6.5"/><path d="M10.5 6.5h3"/></g></symbol>
+      <symbol id="i-pause" viewBox="0 0 24 24"><path d="M7.5 5.5h3v13h-3zM13.5 5.5h3v13h-3z" fill="currentColor"/></symbol>
+      <symbol id="i-sound" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9a4 4 0 0 1 0 6"/><path d="M18 6.5a7.5 7.5 0 0 1 0 11"/></g></symbol>
+      <symbol id="i-mute" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M16 9.5l5 5M21 9.5l-5 5"/></g></symbol>
+      <symbol id="i-chili" viewBox="0 0 24 24"><path d="M17.5 4.5c-.6 1.3-.2 2.2.6 2.8-3.3 2.4-5.4 7.7-11.6 11.8-1 .7-.4 2.2.8 1.9 7.1-1.7 12.6-6.4 12.6-11.6.5-.8 1-1.8.6-3.2-.3-1.1-1.4-1.7-3-1.7z" fill="currentColor"/></symbol>
+      <symbol id="i-person" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"/><path d="M4 21a8 8 0 0 1 16 0z" fill="currentColor"/></symbol>
+    </defs>
+  </svg>
+
+  <!-- Loader -->
+  <div class="loader" aria-hidden="true">
+    <div class="loader__inner">
+      <svg class="loader__sun"><use href="#i-sun"/></svg>
+      <p class="loader__word">Barkada House</p>
+      <p class="loader__hint">Firing up the uling&hellip;</p>
+    </div>
+    <span class="loader__num">00</span>
+  </div>
+
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- Scroll prompt -->
+  <div class="scrollpop" data-scrollpop>
+    <span class="scrollpop__icon" aria-hidden="true">
+      <span class="scrollpop__mouse only-mouse"><i></i></span>
+      <span class="scrollpop__finger only-touch"><i></i></span>
+    </span>
+    <span class="scrollpop__text">
+      <b data-pop-title><span class="only-mouse">Scroll to play the film</span><span class="only-touch">Swipe up to play the film</span></b>
+      <small data-pop-sub>or press play and sit back</small>
+    </span>
+    <button class="scrollpop__play" data-pop-play aria-label="Play the film"><svg data-pop-icon><use href="#i-play"/></svg></button>
+  </div>
+  <div class="progress" aria-hidden="true"></div>
+
+  <!-- Nav -->
+  <header class="nav" data-nav>
+    <a class="brand" href="#top" data-scrollto aria-label="Barkada House, back to top">
+      <svg class="brand__sun"><use href="#i-sun"/></svg>
+      <span class="brand__name">Barkada<i>House</i></span>
+    </a>
+    <div class="nav__right">
+      <a class="pill pill--gold nav__cta" href="#reserve" data-scrollto data-cursor="Book">Reserve</a>
+      <button class="burger" aria-label="Open menu" aria-expanded="false" data-burger><span></span><span></span></button>
+    </div>
+  </header>
+
+  <nav class="navmenu" aria-hidden="true" data-navmenu>
+    <video class="navmenu__bg" muted playsinline loop preload="none" data-clip="chopsuey-04"></video>
+    <ol class="navmenu__links">
+      <li><a href="#top" data-scrollto><span>01</span>Home</a></li>
+      <li><a href="#table" data-scrollto><span>02</span>Spin the table</a></li>
+      <li><a href="#fire" data-scrollto><span>03</span>Inihaw</a></li>
+      <li><a href="#menu" data-scrollto><span>04</span>The menu</a></li>
+      <li><a href="#reserve" data-scrollto><span>05</span>Reserve</a></li>
+    </ol>
+    <p class="navmenu__foot" data-info="hours"></p>
+  </nav>
+
+  <main>
+    <!-- Hero: a scroll-played film -->
+    <section class="film" id="top" aria-label="Barkada House. Scroll to play the film.">
+      <div class="film__pin">
+        <div class="film__intro" data-film-intro>
+          <p class="film__badge">
+            <span class="film__live"></span>
+            <span class="film__ticker" data-ticker>
+              <span>Filipino kitchen &amp; charcoal grill</span>
+              <span>Made for the whole barkada</span>
+              <span>Kain tayo &mdash; let&rsquo;s eat</span>
+            </span>
+          </p>
+          <h1 class="film__title"><span class="film__w">Barkada</span> <em class="film__w">House</em></h1>
+          <p class="film__lede">Feasts made for sharing. <span class="hl">Charcoal-grilled</span>, <span class="hl">slow-simmered</span>, served <span class="hl">family-style</span>.</p>
+          <div class="btns film__btns">
+            <a class="pill pill--gold" href="#reserve" data-scrollto data-cursor="Book">Reserve a table</a>
+            <a class="pill pill--ghost" href="#menu" data-scrollto data-cursor="Menu">See the menu <svg><use href="#i-arrow"/></svg></a>
+          </div>
+        </div>
+        <div class="film__stage">
+          <div class="film__card" data-film-card>
+            <canvas class="film__canvas" data-film></canvas>
+            <div class="film__shade"></div>
+          </div>
+        </div>
+        <div class="film__overlay" data-film-overlay>
+          <div class="film__hud">
+            <div class="film__bars" data-film-bars></div>
+            <div class="film__meta">
+              <span class="film__chapter"><b data-film-n>01</b><span data-film-label></span></span>
+              <span class="film__time" data-film-time>00:00</span>
+            </div>
+          </div>
+          <div class="film__caps" data-film-caps aria-live="polite"></div>
+        </div>
+        <div class="film__veil" data-film-veil></div>
+        <div class="film__end" data-film-end>
+          <p class="eyebrow">Kain tayo &mdash; let&rsquo;s eat</p>
+          <h2 class="display-2">Pull up a chair,<br><em>barkada.</em></h2>
+          <div class="btns">
+            <a class="pill pill--gold" href="#menu" data-scrollto data-cursor="Menu">Explore the menu <svg><use href="#i-arrow"/></svg></a>
+            <a class="pill pill--glass" href="#reserve" data-scrollto data-cursor="Book">Reserve a table</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3D ingredients -->
+    <section class="veg" id="ingredients" aria-label="Everyone brings something to the table">
+      <h2 class="veg__title" data-veg-title><span>Everyone brings</span><em>something.</em></h2>
+      <canvas class="veg__gl" data-veg aria-hidden="true"></canvas>
+      <p class="veg__hint" aria-hidden="true">
+        <span class="only-mouse">Move through the ingredients &middot; click to scatter</span>
+        <span class="only-touch">Drag to stir &middot; tap to scatter</span>
+      </p>
+    </section>
+
+    <!-- Manifesto -->
+    <section class="manifesto" id="about">
+      <p class="eyebrow" data-reveal>01 &mdash; The house</p>
+      <p class="manifesto__text">
+        <span class="manifesto__def">Bar&middot;ka&middot;da <i>(n.)</i></span>
+        Your crew. The friends who show up hungry, stay past closing, and fight over the <em>last piece of crispy pata.</em> We built a house for them &mdash; and we <em>cook like family</em> is coming over.
+      </p>
+      <ul class="pillars">
+        <li data-reveal><span class="pillars__n">Uling</span><b>Charcoal-grilled</b><small>Real lump charcoal, lit before we open.</small></li>
+        <li data-reveal><span class="pillars__n">Sabaw</span><b>Slow-simmered</b><small>Broths given the hours they deserve.</small></li>
+        <li data-reveal><span class="pillars__n">Salo-salo</span><b>Family-style</b><small>Big plates, lazy susans, everybody reaches.</small></li>
+      </ul>
+    </section>
+
+    <div class="marquee" data-marquee aria-hidden="true"><div class="marquee__track" data-marquee-track></div></div>
+
+    <!-- Lazy susan -->
+    <section class="susan" id="table" aria-label="Spin the table: interactive dish picker">
+      <div class="susan__head">
+        <p class="eyebrow" data-reveal>02 &mdash; The lazy susan</p>
+        <h2 class="display-2" data-split>Spin the <em>table.</em></h2>
+        <p class="susan__hint" data-reveal>Drag the table to turn it. Tap the dish in front to watch it come to life.</p>
+      </div>
+      <div class="susan__stage">
+        <div class="susan__display" data-cursor="Watch">
+          <div class="susan__layers" data-display></div>
+          <button class="susan__play" data-act="story" aria-label="Watch it being made"><svg><use href="#i-play"/></svg></button>
+          <span class="susan__count" data-count>01 / 13</span>
+        </div>
+        <div class="susan__info" aria-live="polite">
+          <p class="susan__local" data-local></p>
+          <h3 class="susan__name" data-name></h3>
+          <p class="susan__short" data-short></p>
+          <div class="susan__meta"><span class="price" data-price></span><span class="dot"></span><span data-serves></span></div>
+          <div class="btns">
+            <button class="pill pill--gold" data-act="story"><svg><use href="#i-play"/></svg> Watch it made</button>
+            <button class="pill pill--ghost" data-act="add"><svg><use href="#i-plus"/></svg> Add</button>
+            <button class="pill pill--text" data-act="details">Details</button>
+          </div>
+        </div>
+      </div>
+      <div class="susan__table" data-table data-cursor="Drag">
+        <div class="susan__wheel" data-wheel></div>
+        <div class="susan__pointer" aria-hidden="true"></div>
+        <button class="susan__nav susan__nav--prev" data-step="-1" aria-label="Previous dish"><svg><use href="#i-arrow"/></svg></button>
+        <button class="susan__nav susan__nav--next" data-step="1" aria-label="Next dish"><svg><use href="#i-arrow"/></svg></button>
+        <div class="susan__hand" aria-hidden="true"><span></span></div>
+      </div>
+    </section>
+
+    <!-- Fire -->
+    <section class="fire" id="fire">
+      <video class="fire__bg" muted playsinline loop preload="none" data-clip="inasal-04" data-autoplay></video>
+      <canvas class="fire__embers" data-embers></canvas>
+      <div class="fire__content">
+        <p class="eyebrow" data-reveal>03 &mdash; Inihaw</p>
+        <h2 class="display-2" data-split>Fire is our <em>oldest</em> ingredient.</h2>
+        <p class="lede" data-reveal>Every inasal, every bangus, every skewer of barbecue meets real charcoal. No gas, no shortcuts &mdash; just uling, smoke and someone who knows exactly when to turn it.</p>
+        <ul class="fire__cards">
+          <li data-reveal><b>Uling</b><span>Lump charcoal, burned down to white-hot coals.</span></li>
+          <li data-reveal><b>Usok</b><span>Calamansi, lemongrass and achuete, kissed by smoke.</span></li>
+          <li data-reveal><b>Apoy</b><span>Turned by hand, charred to order.</span></li>
+        </ul>
+        <p class="fire__touch" aria-hidden="true"><span class="only-touch">Touch</span><span class="only-mouse">Move over</span> the fire</p>
+      </div>
+    </section>
+
+    <!-- Toss -->
+    <section class="toss" id="toss" aria-label="Scroll to toss the wok">
+      <div class="toss__pin">
+        <div class="toss__media" data-toss-media data-cursor="Stir">
+          <canvas data-toss></canvas>
+          <span class="toss__shade" aria-hidden="true"></span>
+          <span class="toss__glow" data-toss-glow aria-hidden="true"></span>
+        </div>
+        <div class="toss__copy">
+          <p class="eyebrow">04 &mdash; Scroll to toss</p>
+          <ol class="toss__steps" data-toss-steps>
+            <li class="is-on">
+              <h3><span class="w" style="--i:0">Wok</span> <em class="w" style="--i:1">hei.</em></h3>
+              <p>The breath of the wok: roaring flame, seconds of fire, nothing soggy.</p>
+            </li>
+            <li>
+              <h3><span class="w" style="--i:0">Toss</span> <span class="w" style="--i:1">it</span> <em class="w" style="--i:2">high.</em></h3>
+              <p>Snow peas, baby corn, carrot flowers and quail eggs take flight.</p>
+            </li>
+            <li>
+              <h3><span class="w" style="--i:0">Back</span> <span class="w" style="--i:1">in</span> <span class="w" style="--i:2">the</span> <em class="w" style="--i:3">fire.</em></h3>
+              <p>Glossed in oyster sauce and straight to your table, still crackling.</p>
+            </li>
+          </ol>
+        </div>
+        <div class="toss__bar">
+          <div class="toss__meter" aria-hidden="true">
+            <span class="toss__pct" data-toss-pct>00</span>
+            <span class="toss__line"><i data-toss-bar></i></span>
+            <span class="toss__dish">Chop suey &middot; <b data-toss-price></b></span>
+          </div>
+          <button class="pill pill--gold toss__add" data-toss-add data-cursor="Add"><svg><use href="#i-plus"/></svg> Add chop suey</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Menu -->
+    <section class="menu" id="menu">
+      <div class="menu__head">
+        <p class="eyebrow" data-reveal>05 &mdash; Ang menu</p>
+        <h2 class="display-2" data-split>Order like you <em>mean it.</em></h2>
+        <p class="lede" data-reveal>Big plates, made to pass around. Tap any dish to see how it&rsquo;s made, or add it to your barkada tray.</p>
+      </div>
+      <div class="chips" role="tablist" aria-label="Filter dishes" data-chips>
+        <span class="chips__ind" aria-hidden="true"></span>
+      </div>
+      <div class="grid" data-grid></div>
+
+      <div class="carte">
+        <div class="carte__head">
+          <svg><use href="#i-sun"/></svg>
+          <h3>Sa tabi, panghimagas &amp; inumin</h3>
+          <p>Sides, sweets &amp; drinks</p>
+        </div>
+        <div class="carte__cols" data-carte></div>
+      </div>
+    </section>
+
+    <!-- Reserve -->
+    <section class="reserve" id="reserve">
+      <div class="reserve__intro">
+        <p class="eyebrow" data-reveal>06 &mdash; Reserve</p>
+        <h2 class="display-2" data-split>Save the <em>big table.</em></h2>
+        <p class="lede" data-reveal>Tell us how many are coming. We&rsquo;ll set the lazy susan, light the grill and keep the rice coming.</p>
+      </div>
+      <form class="book" data-book novalidate>
+        <fieldset class="book__group">
+          <legend>How many in your barkada?</legend>
+          <div class="party">
+            <button type="button" class="round" data-party="-1" aria-label="Fewer guests"><svg><use href="#i-minus"/></svg></button>
+            <output class="party__n" data-party-n aria-live="polite">4</output>
+            <button type="button" class="round" data-party="1" aria-label="More guests"><svg><use href="#i-plus"/></svg></button>
+          </div>
+          <div class="party__people" data-people aria-hidden="true"></div>
+        </fieldset>
+        <fieldset class="book__group">
+          <legend>Pick a day</legend>
+          <div class="scroller" data-dates></div>
+        </fieldset>
+        <fieldset class="book__group">
+          <legend>Pick a time</legend>
+          <div class="times" data-times></div>
+        </fieldset>
+        <fieldset class="book__group">
+          <legend>The occasion <small>(optional)</small></legend>
+          <div class="tags" data-occasions></div>
+        </fieldset>
+        <div class="book__fields">
+          <label class="field"><input name="name" autocomplete="name" required placeholder=" "><span>Your name</span></label>
+          <label class="field"><input name="phone" type="tel" inputmode="tel" autocomplete="tel" required placeholder=" "><span>Mobile number</span></label>
+          <label class="field field--wide"><input name="notes" placeholder=" "><span>Notes for the kitchen</span></label>
+        </div>
+        <div class="book__preorder" data-preorder hidden></div>
+        <button class="pill pill--gold pill--xl book__submit" type="submit" data-cursor="Book"><span>Request the table</span><svg><use href="#i-arrow"/></svg></button>
+        <p class="book__err" data-err role="alert"></p>
+
+        <div class="ticket" data-ticket hidden>
+          <div class="ticket__card">
+            <svg class="ticket__sun"><use href="#i-sun"/></svg>
+            <p class="eyebrow">Almost there</p>
+            <h3 class="ticket__title" data-t-title></h3>
+            <dl class="ticket__rows" data-t-rows></dl>
+            <p class="ticket__ref">Ref <b data-t-ref></b></p>
+            <p class="ticket__note">Send the request and we&rsquo;ll confirm your table by text.</p>
+            <div class="btns">
+              <a class="pill pill--gold" data-t-send target="_blank" rel="noopener">Send request</a>
+              <button type="button" class="pill pill--ghost" data-t-ics>Add to calendar</button>
+            </div>
+            <button type="button" class="pill pill--text" data-t-close>Edit booking</button>
+          </div>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <footer class="foot" id="visit">
+    <div class="marquee marquee--thin" data-marquee aria-hidden="true"><div class="marquee__track" data-marquee-track></div></div>
+    <div class="foot__big" data-kain aria-label="Kain na. Let's eat.">Kain na.</div>
+    <div class="foot__cols">
+      <div><h4>Visit</h4><p data-info="address"></p></div>
+      <div><h4>Hours</h4><p data-info="hours"></p></div>
+      <div><h4>Say hello</h4><p><a data-info="phone"></a><br><a data-info="email"></a></p></div>
+      <div><h4>Follow</h4><p class="foot__social" data-info="social"></p></div>
+    </div>
+    <div class="foot__base">
+      <span>&copy; <span data-year></span> Barkada House</span>
+      <a href="#top" data-scrollto class="foot__top">Back to top <svg><use href="#i-arrow"/></svg></a>
+    </div>
+  </footer>
+
+  <!-- Barkada tray -->
+  <button class="trayfab" data-trayfab aria-label="Open your barkada tray" data-cursor="Tray">
+    <span class="trayfab__icon"><svg><use href="#i-tray"/></svg><b data-tray-count>0</b></span>
+    <span class="trayfab__label">Barkada tray</span>
+    <span class="trayfab__total" data-tray-total>₱0</span>
+  </button>
+
+  <dialog class="sheet sheet--tray" data-tray aria-labelledby="trayTitle">
+    <div class="sheet__panel" data-lenis-prevent>
+      <div class="sheet__grab" data-grab></div>
+      <header class="tray__head">
+        <div><p class="eyebrow">Your order</p><h2 id="trayTitle" class="display-3">Barkada tray</h2></div>
+        <button class="round round--ghost" data-close aria-label="Close tray"><svg><use href="#i-close"/></svg></button>
+      </header>
+      <ul class="tray__list" data-tray-list></ul>
+      <p class="tray__empty" data-tray-empty>Your tray is empty. Spin the table and add a few plates.</p>
+      <div class="split" data-split-box>
+        <div class="split__row">
+          <div><p class="split__label">Split between</p><p class="split__sub" data-split-sub>4 friends</p></div>
+          <div class="party party--sm">
+            <button type="button" class="round" data-split="-1" aria-label="Fewer friends"><svg><use href="#i-minus"/></svg></button>
+            <output class="party__n" data-split-n>4</output>
+            <button type="button" class="round" data-split="1" aria-label="More friends"><svg><use href="#i-plus"/></svg></button>
+          </div>
+        </div>
+        <div class="split__people" data-split-people aria-hidden="true"></div>
+        <div class="split__total">
+          <span>Total <b data-tray-sum>₱0</b></span>
+          <span class="split__each"><b data-each>₱0</b> each</span>
+        </div>
+      </div>
+      <div class="tray__actions">
+        <button class="pill pill--gold pill--xl" data-tray-reserve>Reserve with this tray <svg><use href="#i-arrow"/></svg></button>
+        <button class="pill pill--text" data-tray-clear>Clear tray</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Dish details -->
+  <dialog class="sheet sheet--dish" data-dish aria-labelledby="dishName">
+    <div class="sheet__panel" data-lenis-prevent>
+      <div class="dish__media" data-grab>
+        <img alt="" data-d-poster>
+        <video muted playsinline loop preload="none" data-d-video></video>
+        <div class="sheet__grab sheet__grab--over"></div>
+        <button class="round round--glass dish__close" data-close aria-label="Close details"><svg><use href="#i-close"/></svg></button>
+        <button class="pill pill--glass dish__watch" data-d-watch><svg><use href="#i-play"/></svg><span></span></button>
+      </div>
+      <div class="dish__body">
+        <p class="eyebrow" data-d-eyebrow></p>
+        <h2 class="display-3" id="dishName" data-d-name></h2>
+        <p class="dish__local" data-d-local></p>
+        <div class="dish__meta">
+          <span class="price" data-d-price></span>
+          <span class="spice" data-d-spice></span>
+          <span class="dish__tags" data-d-tags></span>
+        </div>
+        <p class="dish__desc" data-d-desc></p>
+        <h4 class="dish__h">What&rsquo;s inside</h4>
+        <ul class="dish__ings" data-d-ings></ul>
+        <h4 class="dish__h">How we make it <small data-d-stepcount></small></h4>
+        <div class="dish__steps" data-d-steps></div>
+        <h4 class="dish__h">Pairs well with</h4>
+        <div class="dish__pairs" data-d-pairs></div>
+      </div>
+      <div class="dish__bar">
+        <div class="party party--sm">
+          <button type="button" class="round" data-qty="-1" aria-label="Decrease quantity"><svg><use href="#i-minus"/></svg></button>
+          <output class="party__n" data-d-qty>1</output>
+          <button type="button" class="round" data-qty="1" aria-label="Increase quantity"><svg><use href="#i-plus"/></svg></button>
+        </div>
+        <button class="pill pill--gold pill--xl dish__add" data-d-add>Add to tray <b data-d-addprice></b></button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Story viewer -->
+  <dialog class="story" data-story aria-label="How it's made">
+    <div class="story__media" data-s-media>
+      <video class="story__v" playsinline preload="auto"></video>
+      <video class="story__v" playsinline preload="auto"></video>
+    </div>
+    <div class="story__ui">
+      <div class="story__bars" data-s-bars></div>
+      <header class="story__head">
+        <img class="story__plate" alt="" data-s-plate>
+        <div class="story__who"><strong data-s-name></strong><span data-s-sub></span></div>
+        <button class="round round--glass" data-s-mute aria-label="Turn sound on"><svg><use href="#i-mute"/></svg></button>
+        <button class="round round--glass" data-s-close aria-label="Close story"><svg><use href="#i-close"/></svg></button>
+      </header>
+      <div class="story__zones" data-s-zones></div>
+      <footer class="story__foot">
+        <p class="story__num" data-s-num></p>
+        <p class="story__cap" data-s-cap></p>
+        <div class="story__actions">
+          <button class="pill pill--gold" data-s-add></button>
+          <button class="pill pill--glass" data-s-next>Next dish <svg><use href="#i-arrow"/></svg></button>
+        </div>
+        <p class="story__tips"><span>Tap to skip</span><span>Hold to pause</span><span>Swipe down to close</span></p>
+      </footer>
+    </div>
+  </dialog>
+
+  <div class="toast" data-toast role="status" aria-live="polite"></div>
+</body>
+</html>
