@@ -1219,8 +1219,23 @@ dialog::backdrop { background: rgba(5, 4, 3, .6); backdrop-filter: blur(6px); -w
 .film__qr .film__explore-ico { background: rgba(243, 234, 219, .1); color: var(--gold-2); }
 .film__qr .film__explore-ico::after { content: none; }
 .film__qr .film__explore-ico svg { width: 16px; height: 16px; translate: none; }
-/* A QR code is for switching to a phone, so phones don't get the button. */
-@media (max-width: 699px) { .film__qr { display: none; } }
+/* Phones: no room for a second row above the film card, so the QR button becomes a round icon
+   beside Explore (and Explore drops its small label). */
+@media (max-width: 699px) {
+  .film__extras { flex-wrap: nowrap; }
+  .film__qr { padding: .45rem; }
+  .film__qr-label { display: none; }
+}
+@media (max-width: 480px) { .film__explore small { display: none; } }
+/* Very narrow phones (320-359px): keep Reserve and See the menu on one row so the hero fits above the film. */
+@media (max-width: 359px) {
+  .film__btns { gap: .4rem; margin-top: 1.2rem; }
+  .film__btns .pill { padding-inline: .9rem; font-size: .86rem; }
+  .film__extras { margin-top: 1.1rem; }
+}
+/* Short phones (iPhone SE/8 and smaller): a taller hero so the buttons clear the film card. */
+@media (max-aspect-ratio: 1/1) and (max-height: 700px) { .film { --intro-h: 70svh; } }
+@media (max-aspect-ratio: 1/1) and (max-height: 600px) { .film { --intro-h: 75svh; } }
 
 /* ---------- Scan to book ---------- */
 .qr { width: 100%; height: 100%; margin: 0; inset: 0; }

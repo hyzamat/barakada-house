@@ -150,7 +150,8 @@ export function initHero() {
   mm.add({ portrait: '(max-aspect-ratio: 1/1)', landscape: '(min-aspect-ratio: 1/1)' }, (c) => {
     const s0 = c.conditions.portrait ? 0.88 : 0.72;
     const r0 = c.conditions.portrait ? 26 : 34;
-    const introH = () => innerHeight * (c.conditions.portrait ? 0.62 : 0.6);
+    // The card starts just below the intro, whose height is --intro-h in the CSS.
+    const introH = () => $('[data-film-intro]', sec).offsetHeight;
     gsap.timeline({
       defaults: { ease: 'none' },
       scrollTrigger: { trigger: sec, start: 'top top', end: 'bottom bottom', scrub: 0.35, invalidateOnRefresh: true },
