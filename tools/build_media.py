@@ -20,7 +20,7 @@ FF = "ffmpeg"
 # dish id -> folder, ordered steps (file prefix, caption, poster second)
 DISHES = {
     "crispy-pata": ("Crispy pata", [
-        ("Beef_shank_on_rotating_board", "The whole knuckle, aromatics at the ready", 6),
+        ("Beef_shank_on_rotating_board", "Beef shank, aromatics at the ready", 6),
         ("Beef_shank_simmering_in_pot", "Simmered low with star anise, bay & peppercorn", 6),
         ("Beef_shank_drying_on_rack", "Salted, then air-dried until taut", 6),
         ("Beef_shank_frying_in_oil", "Plunged into roaring-hot oil", 7),

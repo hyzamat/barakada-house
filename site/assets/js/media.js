@@ -3,7 +3,7 @@ export const CLIPS = {
   "crispy-pata": [
     {
       "id": "crispy-pata-01",
-      "caption": "The whole knuckle, aromatics at the ready"
+      "caption": "Beef shank, aromatics at the ready"
     },
     {
       "id": "crispy-pata-02",

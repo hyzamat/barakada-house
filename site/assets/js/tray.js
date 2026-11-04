@@ -1,6 +1,6 @@
 // Barkada tray: a shared order you can split between friends. Saved in localStorage.
 import { byId, clipOf } from './data.js';
-import { $, el, icon, plateSrc, peso, haptic, store, toast, scroller, personIcons, mq, dragToClose } from './util.js';
+import { $, el, icon, plateSrc, money, haptic, store, toast, scroller, personIcons, mq, dragToClose } from './util.js';
 
 export function initTray() {
   let items = store('bh.tray') || {};
@@ -37,16 +37,16 @@ export function initTray() {
     gsap.to(shown, {
       total: t, each: Math.ceil(t / friends), duration: 0.6, ease: 'power2.out', overwrite: true,
       onUpdate: () => {
-        ui.total.textContent = peso(shown.total);
-        ui.sum.textContent = peso(shown.total);
-        ui.each.textContent = peso(shown.each);
+        ui.total.textContent = money(shown.total);
+        ui.sum.textContent = money(shown.total);
+        ui.each.textContent = money(shown.each);
       },
     });
     list.innerHTML = Object.entries(items).map(([id, q]) => {
       const d = byId[id];
       return `<li class="tray__item" data-id="${id}">
         <img src="${plateSrc(clipOf(d, d.plate))}" alt="">
-        <div><strong>${d.name}</strong><span>${peso(d.price)} &times; ${q} = ${peso(d.price * q)}</span></div>
+        <div><strong>${d.name}</strong><span>${money(d.price)} &times; ${q} = ${money(d.price * q)}</span></div>
         <div class="party party--sm">
           <button type="button" class="round" data-d="-1" aria-label="One less ${d.name}">${icon(q === 1 ? 'close' : 'minus')}</button>
           <output class="party__n">${q}</output>

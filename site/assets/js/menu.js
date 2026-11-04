@@ -1,6 +1,6 @@
 // Menu grid with animated filters, the text carte, and the dish detail sheet.
 import { DISHES, CATEGORIES, CARTE, byId, clipOf } from './data.js';
-import { $, $$, el, mq, icon, posterSrc, plateSrc, prepVideo, autoplay, play, pause, peso, pad, scroller, dragToClose } from './util.js';
+import { $, $$, el, mq, icon, posterSrc, plateSrc, prepVideo, autoplay, play, pause, money, pad, scroller, dragToClose } from './util.js';
 
 export function initMenu({ openStory, addToTray }) {
   const grid = $('[data-grid]');
@@ -36,7 +36,7 @@ export function initMenu({ openStory, addToTray }) {
       </button>
       <button class="card__add" data-add aria-label="Add ${d.name} to tray">${icon('plus')}</button>
       <div class="card__body">
-        <div class="card__row"><h3>${d.name}</h3><span class="price">${peso(d.price)}</span></div>
+        <div class="card__row"><h3>${d.name}</h3><span class="price">${money(d.price)}</span></div>
         <p class="card__local">${d.local}</p>
         <p class="card__short">${d.short}</p>
       </div>`;
@@ -86,7 +86,7 @@ export function initMenu({ openStory, addToTray }) {
   $('[data-carte]').innerHTML = CARTE.map(([title, sub, items]) => `
     <div class="carte__col" data-reveal>
       <h4>${title}<small>${sub}</small></h4>
-      <ul>${items.map(([n, s, p]) => `<li><b>${n}</b><i></i><span class="price">${peso(p)}</span><small>${s}</small></li>`).join('')}</ul>
+      <ul>${items.map(([n, s, p]) => `<li><b>${n}</b><i></i><span class="price">${money(p)}</span><small>${s}</small></li>`).join('')}</ul>
     </div>`).join('');
 
   // ---------- Dish sheet ----------
@@ -109,7 +109,7 @@ export function initMenu({ openStory, addToTray }) {
     q('eyebrow').textContent = `${CATEGORIES.find(([k]) => k === d.cats[0])[1]} · Serves ${d.serves}`;
     q('name').textContent = d.name;
     q('local').textContent = d.local;
-    q('price').textContent = peso(d.price);
+    q('price').textContent = money(d.price);
     q('spice').innerHTML = d.spice ? [1, 2, 3].map((n) => icon('chili', n > d.spice ? 'off' : '')).join('') : '';
     q('spice').setAttribute('aria-label', d.spice ? `Spice level ${d.spice} of 3` : '');
     q('tags').innerHTML = d.tags.map((t) => `<span class="tag">${t}</span>`).join('');
@@ -124,7 +124,7 @@ export function initMenu({ openStory, addToTray }) {
       </button>`).join('');
     q('pairs').innerHTML = d.pairs.map((id) => {
       const p = byId[id];
-      return `<button class="pair" data-pair="${id}"><img src="${plateSrc(clipOf(p, p.plate))}" alt=""><div><strong>${p.name}</strong><span>${p.local} · ${peso(p.price)}</span></div>${icon('arrow')}</button>`;
+      return `<button class="pair" data-pair="${id}"><img src="${plateSrc(clipOf(p, p.plate))}" alt=""><div><strong>${p.name}</strong><span>${p.local} · ${money(p.price)}</span></div>${icon('arrow')}</button>`;
     }).join('');
     setQty(1);
     q('steps').scrollLeft = 0;
@@ -133,7 +133,7 @@ export function initMenu({ openStory, addToTray }) {
   function setQty(n) {
     qty = Math.max(1, Math.min(20, n));
     q('qty').textContent = qty;
-    q('addprice').textContent = `· ${peso(current.price * qty)}`;
+    q('addprice').textContent = `· ${money(current.price * qty)}`;
   }
 
   function openDish(id) {

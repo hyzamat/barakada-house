@@ -1,6 +1,6 @@
 // Full-screen "how it's made" stories: tap to skip, hold to pause, swipe to change dish or close.
 import { DISHES, byId, clipOf } from './data.js';
-import { $, $$, clipSrc, posterSrc, plateSrc, peso, pad, haptic, scroller, store, icon } from './util.js';
+import { $, $$, clipSrc, posterSrc, plateSrc, money, pad, haptic, scroller, store, icon } from './util.js';
 
 export function initStory({ addToTray }) {
   const dlg = $('[data-story]');
@@ -48,7 +48,7 @@ export function initStory({ addToTray }) {
     bars.innerHTML = dish.steps.map(() => '<div class="story__bar"><i></i></div>').join('');
     ui.plate.src = plateSrc(clipOf(dish, dish.plate));
     ui.name.textContent = dish.name;
-    ui.add.innerHTML = `${icon('plus')} Add to tray &middot; ${peso(dish.price)}`;
+    ui.add.innerHTML = `${icon('plus')} Add to tray &middot; ${money(dish.price)}`;
   }
 
   function go(i) {

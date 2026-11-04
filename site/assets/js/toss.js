@@ -2,7 +2,7 @@
 import { TOSS } from './toss-data.js';
 import { byId } from './data.js';
 import { createFilmGL } from './fluid.js';
-import { $, $$, mq, peso } from './util.js';
+import { $, $$, mq, money } from './util.js';
 
 export function initToss({ addToTray }) {
   const sec = $('#toss');
@@ -14,7 +14,7 @@ export function initToss({ addToTray }) {
   const src = (i) => `media/seq/${set}-${String(i + 1).padStart(3, '0')}.webp`;
   let gl = null, ctx = null, started = false;
 
-  $('[data-toss-price]', sec).textContent = peso(byId.chopsuey.price);
+  $('[data-toss-price]', sec).textContent = money(byId.chopsuey.price);
   $('[data-toss-add]', sec).addEventListener('click', (e) => addToTray('chopsuey', e.currentTarget));
 
   function load(i) {

@@ -1,12 +1,12 @@
 // Reservation form. Builds a booking request the guest sends via WhatsApp, plus a calendar file.
 // To use your own booking system instead, replace the body of `submit()` with a fetch() to it.
 import { INFO, byId, clipOf } from './data.js';
-import { $, $$, el, haptic, personIcons, plateSrc, peso, scroller } from './util.js';
+import { $, $$, el, haptic, personIcons, plateSrc, money, scroller } from './util.js';
 
 const OCCASIONS = ['Birthday', 'Barkada reunion', 'Date night', 'Celebration', 'Just because'];
 const SLOTS = {
-  Lunch: ['11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30'],
-  Dinner: ['17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30', '21:00', '21:30'],
+  Lunch: ['12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00'],
+  Dinner: ['19:00', '19:30', '20:00', '20:30', '21:00', '21:30', '22:00', '22:30', '23:00'],
 };
 
 export function initReserve() {
@@ -14,9 +14,9 @@ export function initReserve() {
   const ticket = $('[data-ticket]', form);
   const err = $('[data-err]', form);
   const s = { party: 4, date: null, time: null, occasion: null, tray: {} };
-  const dayFmt = new Intl.DateTimeFormat('en-PH', { weekday: 'short' });
-  const monFmt = new Intl.DateTimeFormat('en-PH', { month: 'short' });
-  const longFmt = new Intl.DateTimeFormat('en-PH', { weekday: 'long', month: 'long', day: 'numeric' });
+  const dayFmt = new Intl.DateTimeFormat('en-GB', { weekday: 'short' });
+  const monFmt = new Intl.DateTimeFormat('en-GB', { month: 'short' });
+  const longFmt = new Intl.DateTimeFormat('en-GB', { weekday: 'long', month: 'long', day: 'numeric' });
 
   // Party size
   const partyN = $('[data-party-n]', form);
@@ -95,7 +95,7 @@ export function initReserve() {
     if (!ids.length) return;
     const n = Object.values(s.tray).reduce((a, b) => a + b, 0);
     pre.innerHTML = `<span class="imgs">${ids.slice(0, 4).map((id) => `<img src="${plateSrc(clipOf(byId[id], byId[id].plate))}" alt="">`).join('')}</span>
-      <span>Pre-order: <b>${n} dish${n > 1 ? 'es' : ''}</b> &middot; ${peso(e.detail.total)}, ready when you arrive.</span>`;
+      <span>Pre-order: <b>${n} dish${n > 1 ? 'es' : ''}</b> &middot; ${money(e.detail.total)}, ready when you arrive.</span>`;
   });
   addEventListener('tray:reserve', (e) => setParty(e.detail.friends));
 

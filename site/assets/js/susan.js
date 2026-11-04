@@ -1,6 +1,6 @@
 // The lazy susan: a draggable, flingable wheel of plates. The plate at the top is the selected dish.
 import { DISHES, clipOf } from './data.js';
-import { $, $$, el, plateSrc, posterSrc, prepVideo, play, pause, peso, pad, haptic, mq } from './util.js';
+import { $, $$, el, plateSrc, posterSrc, prepVideo, play, pause, money, pad, haptic, mq } from './util.js';
 
 export function initSusan({ openStory, openDish, addToTray }) {
   const root = $('#table');
@@ -23,7 +23,7 @@ export function initSusan({ openStory, openDish, addToTray }) {
     b.type = 'button';
     b.dataset.i = i;
     b.style.setProperty('--a', `${i * STEP}deg`);
-    b.setAttribute('aria-label', `${d.name}, ${peso(d.price)}`);
+    b.setAttribute('aria-label', `${d.name}, ${money(d.price)}`);
     wheel.append(b);
     return b;
   });
@@ -47,7 +47,7 @@ export function initSusan({ openStory, openDish, addToTray }) {
     ui.name.innerHTML = `<span>${d.name}</span>`;
     ui.local.textContent = d.local;
     ui.short.textContent = d.short;
-    ui.price.textContent = peso(d.price);
+    ui.price.textContent = money(d.price);
     ui.serves.textContent = `Serves ${d.serves}`;
     ui.count.textContent = `${pad(i + 1)} / ${pad(N)}`;
     if (!first) {

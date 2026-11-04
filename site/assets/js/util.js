@@ -15,7 +15,7 @@ export const clipSrc = (id, o = orient()) => `media/v/${id}-${o}.mp4`;
 export const posterSrc = (id, o = orient()) => `media/p/${id}-${o}.webp`;
 export const plateSrc = (id) => `media/p/${id}-s.webp`;
 
-export const peso = (n) => '₱' + Math.round(n).toLocaleString('en-PH');
+export const money = (n) => 'SAR ' + Math.round(n).toLocaleString('en-US');
 export const pad = (n) => String(n).padStart(2, '0');
 
 export function haptic(ms = 8) {

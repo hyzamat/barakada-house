@@ -60,8 +60,11 @@ void main() {
   vec2 dir = wake > 0.001 ? t / wake : vec2(0.0, 1.0);
   vec3 col = vec3(film(uv + dir * split).r, film(uv).g, film(uv - dir * split).b);
   col += vec3(1.0, 0.55, 0.22) * smoothstep(0.0, 1.2, wake) * 0.12;
+  // Grade: gentle S-curve, a touch darker and warmer, deeper vignette.
+  col = mix(col, col * col * (3.0 - 2.0 * col), 0.35);
+  col *= vec3(0.92, 0.88, 0.83);
   float vig = smoothstep(1.25, 0.3, length(vUv - 0.5) * 1.35);
-  col *= mix(0.74, 1.0, vig);
+  col *= mix(0.58, 1.0, vig);
   col += (hash(vUv * uRes + fract(uTime) * 91.0) - 0.5) * 0.03;
   gl_FragColor = vec4(col, 1.0);
 }`;

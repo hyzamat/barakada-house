@@ -1,14 +1,14 @@
 /* Barkada House — mobile-first styles */
 
 :root {
-  --ink: #0c0907;
-  --ink-2: #14100c;
-  --ink-3: #1d1712;
-  --ink-4: #2a221a;
+  --ink: #080605;
+  --ink-2: #100c09;
+  --ink-3: #19130f;
+  --ink-4: #251d16;
   --cream: #f3eadb;
   --cream-2: #e8dcc7;
-  --paper: #f4ecdf;
-  --paper-2: #eadfcb;
+  --paper: #ebe1cf;
+  --paper-2: #dfd2bb;
   --muted: rgba(243, 234, 219, .66);
   --faint: rgba(243, 234, 219, .4);
   --line: rgba(243, 234, 219, .14);
@@ -103,6 +103,7 @@ svg use { pointer-events: none; }
   font-variation-settings: "opsz" 40;
   font-weight: 500;
   letter-spacing: -.01em;
+  white-space: nowrap;
 }
 .split-line { overflow: clip; padding-bottom: .08em; margin-bottom: -.08em; }
 
@@ -169,6 +170,10 @@ svg use { pointer-events: none; }
   0% { transform: translate(0, 0); } 20% { transform: translate(-3%, 2%); } 40% { transform: translate(2%, -4%); }
   60% { transform: translate(-4%, -1%); } 80% { transform: translate(3%, 3%); } 100% { transform: translate(0, 0); }
 }
+.vignette {
+  position: fixed; inset: 0; z-index: 89; pointer-events: none;
+  background: radial-gradient(135% 105% at 50% 45%, transparent 58%, rgba(5, 4, 3, .42) 100%);
+}
 .progress {
   position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 80;
   background: linear-gradient(90deg, var(--ember), var(--gold-2));
@@ -176,7 +181,11 @@ svg use { pointer-events: none; }
   pointer-events: none;
 }
 @supports (animation-timeline: scroll()) {
-  .progress { animation: progress linear both; animation-timeline: scroll(root); }
+  .vignette {
+  position: fixed; inset: 0; z-index: 89; pointer-events: none;
+  background: radial-gradient(135% 105% at 50% 45%, transparent 58%, rgba(5, 4, 3, .42) 100%);
+}
+.progress { animation: progress linear both; animation-timeline: scroll(root); }
   @keyframes progress { to { transform: scaleX(1); } }
 }
 
@@ -323,7 +332,7 @@ svg use { pointer-events: none; }
 .film__canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
 .film__shade {
   position: absolute; inset: 0; pointer-events: none;
-  background: linear-gradient(180deg, rgba(12, 9, 7, .55), transparent 26%, transparent 55%, rgba(12, 9, 7, .8));
+  background: linear-gradient(180deg, rgba(8, 6, 5, .62), transparent 28%, transparent 50%, rgba(8, 6, 5, .86));
 }
 
 .film__overlay { position: absolute; inset: 0; z-index: 3; pointer-events: none; opacity: 0; visibility: hidden; }
@@ -644,7 +653,7 @@ svg use { pointer-events: none; }
 .toss__shade {
   position: absolute; inset: 0; pointer-events: none;
   background:
-    linear-gradient(180deg, rgba(12, 9, 7, .5), transparent 20%, transparent 34%, rgba(12, 9, 7, .6) 58%, rgba(12, 9, 7, .93) 100%);
+    linear-gradient(180deg, rgba(8, 6, 5, .58), transparent 22%, transparent 32%, rgba(8, 6, 5, .66) 58%, rgba(8, 6, 5, .95) 100%);
 }
 .toss__glow { position: absolute; inset: auto 0 0; height: 55%; pointer-events: none; background: radial-gradient(60% 80% at 50% 100%, rgba(255, 120, 40, .5), transparent 70%); mix-blend-mode: screen; opacity: 0; }
 .toss__copy {
@@ -678,7 +687,7 @@ svg use { pointer-events: none; }
 .toss__dish b { color: #fff; font-weight: 650; }
 .toss__add { flex: none; min-height: 44px; padding: .6rem 1.1rem; font-size: .88rem; }
 @media (min-width: 900px) {
-  .toss__shade { background: linear-gradient(90deg, rgba(12, 9, 7, .78), rgba(12, 9, 7, .3) 45%, transparent 70%), linear-gradient(180deg, rgba(12, 9, 7, .5), transparent 25%, transparent 70%, rgba(12, 9, 7, .7)); }
+  .toss__shade { background: linear-gradient(90deg, rgba(8, 6, 5, .86), rgba(8, 6, 5, .42) 45%, rgba(8, 6, 5, .1) 75%), linear-gradient(180deg, rgba(8, 6, 5, .6), transparent 25%, transparent 62%, rgba(8, 6, 5, .82)); }
   .toss__copy { right: auto; width: min(760px, 60vw); bottom: calc(140px + var(--safe-b)); }
   .toss__steps { height: 15rem; }
   .toss h3 { font-size: clamp(4rem, 8vw, 8.5rem); }
@@ -747,7 +756,7 @@ svg use { pointer-events: none; }
 .card__media video { opacity: 0; }
 .card__media video.is-playing { opacity: 1; }
 @media (hover: hover) { .card:hover .card__media img, .card:hover .card__media video { transform: scale(1.06); } }
-.card__media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, rgba(12, 9, 7, .35)); pointer-events: none; }
+.card__media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(8, 6, 5, .14), transparent 30%, transparent 50%, rgba(8, 6, 5, .5)), radial-gradient(120% 90% at 50% 40%, transparent 60%, rgba(8, 6, 5, .28)); pointer-events: none; }
 .card__tags { position: absolute; left: 10px; top: 10px; z-index: 2; display: flex; flex-wrap: wrap; gap: 4px; }
 .tag { padding: .3rem .55rem; border-radius: 999px; font-size: .64rem; font-weight: 750; letter-spacing: .06em; text-transform: uppercase; background: rgba(246, 239, 227, .9); color: var(--ink-text); backdrop-filter: blur(6px); }
 .tag--hot { background: var(--chili); color: #fff; }
@@ -953,7 +962,7 @@ svg use { pointer-events: none; }
 .trayfab__icon svg { width: 22px; height: 22px; }
 .trayfab__icon b { position: absolute; right: -4px; top: -4px; min-width: 20px; height: 20px; padding: 0 5px; border-radius: 10px; background: var(--ember); color: #fff; font-size: .7rem; display: grid; place-items: center; box-shadow: 0 0 0 2px var(--ink); }
 .trayfab__label { font-weight: 650; font-size: .92rem; white-space: nowrap; }
-.trayfab__total { font: 500 1.05rem/1 var(--serif); color: var(--gold-2); }
+.trayfab__total { font: 500 1.05rem/1 var(--serif); color: var(--gold-2); white-space: nowrap; }
 .fly { position: fixed; z-index: 400; width: 54px; height: 54px; border-radius: 50%; object-fit: cover; pointer-events: none; box-shadow: 0 0 0 3px #f6f1ea, 0 10px 30px rgba(0, 0, 0, .5); left: 0; top: 0; }
 
 /* ---------- Sheets (dialogs) ---------- */
