@@ -242,10 +242,11 @@ export function initHero() {
     const intro = $('[data-film-intro]', sec);
     const rgb = (a, b, t) => `rgb(${a.map((v, i) => Math.round(v + (b[i] - v) * t)).join(',')})`;
     const states = chars.map((el) => {
-      const italic = !!el.closest('em');
+      const gold = !!el.closest('em');
+      const italic = getComputedStyle(el).fontStyle === 'italic';
       return {
         el, italic, p: 0, wv: 0, tap: 0, k: -1, w0: italic ? 280 : 360,
-        from: italic ? [242, 205, 126] : [243, 234, 219], to: italic ? [255, 240, 200] : [255, 252, 245],
+        from: gold ? [242, 205, 126] : [243, 234, 219], to: gold ? [255, 240, 200] : [255, 252, 245],
       };
     });
     gsap.timeline({ repeat: -1, repeatDelay: 2.6 })
@@ -303,7 +304,7 @@ export function initHero() {
       .from('.film__badge', { y: 16, opacity: 0, scale: 0.9, duration: 1, ease: 'expo.out' }, 0)
       .from(words.words, { y: 14, opacity: 0, filter: 'blur(8px)', duration: 1, ease: 'expo.out', stagger: 0.025 }, 0.4)
       .add(() => lede.classList.add('is-in'), 0.9)
-      .from('.film__btns > *', { y: 24, opacity: 0, duration: 1.1, ease: 'expo.out', stagger: 0.08 }, 0.6)
+      .fromTo('.film__btns > *', { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 1.1, ease: 'expo.out', stagger: 0.08 }, 0.6)
       .from('.film__stage', { yPercent: 40, opacity: 0, duration: 1.6, ease: 'expo.out' }, 0.2)
       .from('.nav', { yPercent: -100, opacity: 0, duration: 1, ease: 'expo.out' }, 0.5);
     return tl;

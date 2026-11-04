@@ -2,12 +2,12 @@
 import { CLIPS } from './media.js';
 
 export const INFO = {
-  address: 'Your street address<br>Riyadh, Saudi Arabia',
+  address: 'Riyadh<br>Saudi Arabia',
   hours: 'Open daily &middot; 12:00 &ndash; 00:00<br>Kitchen closes 23:30',
-  phone: '+966 50 000 0000',
-  email: 'hello@example.com',
+  phone: '+966 53 562 7615',
+  website: 'barakadahouse.hizarc.com',
   // Digits only, with country code. Used for the "Send request" button on bookings.
-  whatsapp: '966500000000',
+  whatsapp: '966535627615',
   social: [
     ['Instagram', 'https://instagram.com/'],
     ['Facebook', 'https://facebook.com/'],

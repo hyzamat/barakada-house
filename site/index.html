@@ -4,8 +4,16 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Barkada House — Filipino Kitchen & Charcoal Grill</title>
-  <meta name="description" content="Barkada House is a premium Filipino kitchen and charcoal grill. Crispy pata, kare-kare, bulalo and inasal, made for sharing.">
+  <meta name="description" content="Barkada House is a premium Filipino kitchen and charcoal grill in Riyadh. Crispy pata, kare-kare, bulalo and inasal, made for sharing.">
   <meta name="theme-color" content="#0c0907">
+  <link rel="canonical" href="https://barakadahouse.hizarc.com/">
+  <meta property="og:type" content="restaurant.restaurant">
+  <meta property="og:url" content="https://barakadahouse.hizarc.com/">
+  <meta property="og:site_name" content="Barkada House">
+  <meta property="og:title" content="Barkada House — Filipino Kitchen & Charcoal Grill, Riyadh">
+  <meta property="og:description" content="Charcoal-grilled, slow-simmered Filipino feasts made for sharing, in Riyadh. Reserve the big table.">
+  <meta property="og:image" content="https://barakadahouse.hizarc.com/media/p/crispy-pata-05-l.webp">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -125,6 +133,7 @@
             <a class="pill pill--gold" href="#reserve" data-scrollto data-cursor="Book">Reserve a table</a>
             <a class="pill pill--ghost" href="#menu" data-scrollto data-cursor="Menu">See the menu <svg><use href="#i-arrow"/></svg></a>
           </div>
+          <button class="film__explore" data-tour-start data-cursor="Explore"><span class="film__explore-ico"><svg><use href="#i-play"/></svg></span>Explore the house <small>guided tour</small></button>
         </div>
         <div class="film__stage">
           <div class="film__card" data-film-card>
@@ -357,11 +366,11 @@
 
   <footer class="foot" id="visit">
     <div class="marquee marquee--thin" data-marquee aria-hidden="true"><div class="marquee__track" data-marquee-track></div></div>
-    <div class="foot__big" data-kain aria-label="Kain na. Let's eat.">Kain na.</div>
+    <div class="foot__big" data-kain aria-label="Barkada House"><span class="foot__w">Barkada</span> <em class="foot__w">House</em></div>
     <div class="foot__cols">
       <div><h4>Visit</h4><p data-info="address"></p></div>
       <div><h4>Hours</h4><p data-info="hours"></p></div>
-      <div><h4>Say hello</h4><p><a data-info="phone"></a><br><a data-info="email"></a></p></div>
+      <div><h4>Say hello</h4><p><a data-info="phone"></a><br><a data-info="website"></a></p></div>
       <div><h4>Follow</h4><p class="foot__social" data-info="social"></p></div>
     </div>
     <div class="foot__base">
@@ -474,5 +483,14 @@
   </dialog>
 
   <div class="toast" data-toast role="status" aria-live="polite"></div>
+
+  <!-- Guided tour -->
+  <div class="tour" data-tour aria-live="polite" hidden>
+    <span class="tour__dot" aria-hidden="true"></span>
+    <span class="tour__text"><small>Guided tour &middot; tap anywhere to stop</small><b data-tour-text>Welcome to Barkada House</b></span>
+    <span class="tour__bar" aria-hidden="true"><i data-tour-bar></i></span>
+    <button class="tour__stop" data-tour-stop>Stop</button>
+  </div>
+  <div class="tour-cursor" data-tour-cursor aria-hidden="true"><i></i></div>
 </body>
 </html>

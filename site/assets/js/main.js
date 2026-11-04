@@ -2,6 +2,7 @@ import { DISHES, INFO, clipOf } from './data.js';
 import { $, $$, el, mq, plateSrc, prepVideo, play, pause, autoplay, scroller } from './util.js';
 import { initHero, firstFrame } from './hero.js';
 import { initIngredients } from './ingredients.js';
+import { initTour } from './tour.js';
 import { initSusan } from './susan.js';
 import { initEmbers } from './embers.js';
 import { initToss } from './toss.js';
@@ -45,6 +46,7 @@ function boot() {
   api.menu = initMenu({ openStory: api.story.open, addToTray: api.tray.add });
   initSusan({ openStory: api.story.open, openDish: api.menu.openDish, addToTray: api.tray.add });
   initReserve();
+  initTour({ story: api.story, menu: api.menu });
   api.tray.refresh();
   initEmbers($('[data-embers]'), $('#fire'));
   initToss({ addToTray: api.tray.add });
@@ -237,7 +239,8 @@ function cursor() {
   const ry = gsap.quickTo(ring, 'y', { duration: 0.55, ease: 'power3' });
   const dx = gsap.quickTo(dot, 'x', { duration: 0.08 });
   const dy = gsap.quickTo(dot, 'y', { duration: 0.08 });
-  addEventListener('pointermove', (e) => { rx(e.clientX); ry(e.clientY); dx(e.clientX); dy(e.clientY); }, { passive: true });
+  // Real pointer only: the guided tour dispatches its own (untrusted) pointer events.
+  addEventListener('pointermove', (e) => { if (!e.isTrusted) return; rx(e.clientX); ry(e.clientY); dx(e.clientX); dy(e.clientY); }, { passive: true });
   // Stretch the ring along its direction of travel, like a drop of liquid.
   let lx = 0, ly = 0;
   gsap.ticker.add(() => {
@@ -248,9 +251,10 @@ function cursor() {
     const sp = Math.min(Math.hypot(vx, vy), 70);
     gsap.set(ring, { rotation: sp > 0.5 ? (Math.atan2(vy, vx) * 180) / Math.PI : '+=0', scaleX: 1 + sp / 45, scaleY: Math.max(0.55, 1 - sp / 120) });
   });
-  addEventListener('pointerdown', () => c.classList.add('is-down'));
-  addEventListener('pointerup', () => c.classList.remove('is-down'));
+  addEventListener('pointerdown', (e) => { if (e.isTrusted) c.classList.add('is-down'); });
+  addEventListener('pointerup', (e) => { if (e.isTrusted) c.classList.remove('is-down'); });
   document.addEventListener('pointerover', (e) => {
+    if (!e.isTrusted) return;
     const t = e.target.closest?.('[data-cursor]');
     c.classList.toggle('has-label', !!t);
     if (t) label.textContent = t.dataset.cursor;
@@ -298,7 +302,7 @@ function fillInfo() {
   $$('[data-info]').forEach((n) => {
     const key = n.dataset.info;
     if (key === 'phone') { n.textContent = INFO.phone; n.href = `tel:${INFO.phone.replace(/\s/g, '')}`; }
-    else if (key === 'email') { n.textContent = INFO.email; n.href = `mailto:${INFO.email}`; }
+    else if (key === 'website') { n.textContent = INFO.website; n.href = `https://${INFO.website}/`; }
     else if (key === 'social') n.innerHTML = INFO.social.map(([name, url]) => `<a href="${url}" target="_blank" rel="noopener">${name}</a>`).join('');
     else n.innerHTML = INFO[key];
   });
