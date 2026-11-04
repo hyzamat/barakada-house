@@ -58,6 +58,7 @@ function boot() {
   cursor();
   magnetic();
   footer();
+  polish();
 
   runLoader(hero);
   document.fonts?.ready.then(() => ScrollTrigger.refresh());
@@ -300,5 +301,41 @@ function fillInfo() {
     else if (key === 'email') { n.textContent = INFO.email; n.href = `mailto:${INFO.email}`; }
     else if (key === 'social') n.innerHTML = INFO.social.map(([name, url]) => `<a href="${url}" target="_blank" rel="noopener">${name}</a>`).join('');
     else n.innerHTML = INFO[key];
+  });
+}
+
+/* ---------------- Premium polish ---------------- */
+function polish() {
+  // Ornament dividers draw themselves in.
+  $$('[data-orn]').forEach((o) => {
+    gsap.from($$('i', o), { scaleX: 0, duration: 1.4, ease: 'expo.out', scrollTrigger: { trigger: o, start: 'top 88%', once: true } });
+    gsap.from($('svg', o), { scale: 0, rotate: -90, duration: 1.2, ease: 'back.out(2)', scrollTrigger: { trigger: o, start: 'top 88%', once: true } });
+  });
+
+  // Plates drift past the manifesto at different depths.
+  if (!reduce) {
+    $$('[data-float]').forEach((img) => {
+      const k = +img.dataset.float;
+      gsap.fromTo(img, { y: 160 * k, rotate: -8 * k }, { y: -160 * k, rotate: 8 * k, ease: 'none', scrollTrigger: { trigger: img.parentElement, start: 'top bottom', end: 'bottom top', scrub: 0.6 } });
+    });
+  }
+
+  // Menu cards tilt toward the pointer with a light sheen.
+  if (!mq.fine.matches || reduce) return;
+  $$('.card').forEach((card) => {
+    const media = $('.card__media', card);
+    const sheen = $('.card__sheen', card);
+    const rx = gsap.quickTo(media, 'rotationX', { duration: 0.6, ease: 'power3' });
+    const ry = gsap.quickTo(media, 'rotationY', { duration: 0.6, ease: 'power3' });
+    card.addEventListener('pointermove', (e) => {
+      const r = media.getBoundingClientRect();
+      const px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
+      rx((0.5 - py) * 14);
+      ry((px - 0.5) * 14);
+      sheen.style.setProperty('--mx', `${px * 100}%`);
+      sheen.style.setProperty('--my', `${py * 100}%`);
+      card.classList.add('is-tilt');
+    });
+    card.addEventListener('pointerleave', () => { rx(0); ry(0); card.classList.remove('is-tilt'); });
   });
 }

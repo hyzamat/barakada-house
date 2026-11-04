@@ -33,6 +33,7 @@ export function initMenu({ openStory, addToTray }) {
         <img src="${posterSrc(cover, 'p')}" alt="${d.name}" loading="lazy" decoding="async">
         <video muted playsinline loop preload="none"></video>
         <span class="card__tags"><span class="tag${tag === 'Spicy' ? ' tag--hot' : ''}">${tag}</span></span>
+        <span class="card__sheen" aria-hidden="true"></span>
       </button>
       <button class="card__add" data-add aria-label="Add ${d.name} to tray">${icon('plus')}</button>
       <div class="card__body">
