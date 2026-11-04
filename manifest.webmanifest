@@ -1,0 +1,10 @@
+{
+  "name": "Barkada House",
+  "short_name": "Barkada",
+  "description": "Kitchen & charcoal grill. Feasts made for sharing.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#0c0907",
+  "theme_color": "#0c0907",
+  "icons": [{ "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+}
