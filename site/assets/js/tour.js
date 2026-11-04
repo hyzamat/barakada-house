@@ -305,7 +305,9 @@ export function initTour({ story, menu }) {
   $$('[data-tour-start]').forEach((b) => b.addEventListener('click', start));
   $('[data-tour-stop]', hud).addEventListener('click', stop);
   // Any real input from the visitor ends the tour (the tour's own events are untrusted).
-  const userStop = (e) => { if (active && e.isTrusted && !hud.contains(e.target) && !qrPin.contains(e.target)) stop(); };
+  const userStop = (e) => {
+    if (active && e.isTrusted && !hud.contains(e.target) && !qrPin.contains(e.target) && !e.target.closest?.('[data-sound]')) stop();
+  };
   addEventListener('pointerdown', userStop, true);
   addEventListener('wheel', userStop, { passive: true });
   addEventListener('touchstart', userStop, { passive: true });

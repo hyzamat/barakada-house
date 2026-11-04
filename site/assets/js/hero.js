@@ -301,13 +301,16 @@ export function initHero() {
     const lede = $('.film__lede', sec);
     const words = SplitText.create(lede, { type: 'words' });
     const tl = gsap.timeline({ onComplete: () => { introDone = true; onScrolled(); livingTitle(split.chars); ticker(); } });
+    // The nav's CSS transition (for hiding on scroll) would fight this tween and leave the nav stuck
+    // off-screen, so it's off until the nav lands; clearing the inline styles hands it back to CSS.
+    gsap.set('.nav', { transition: 'none' });
     tl.from(split.chars, { yPercent: 115, rotate: 5, duration: 1.3, ease: 'expo.out', stagger: 0.04 }, 0.05)
       .from('.film__badge', { y: 16, opacity: 0, scale: 0.9, duration: 1, ease: 'expo.out' }, 0)
       .from(words.words, { y: 14, opacity: 0, filter: 'blur(8px)', duration: 1, ease: 'expo.out', stagger: 0.025 }, 0.4)
       .add(() => lede.classList.add('is-in'), 0.9)
       .fromTo('.film__btns > *', { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 1.1, ease: 'expo.out', stagger: 0.08 }, 0.6)
       .from('.film__stage', { yPercent: 40, opacity: 0, duration: 1.6, ease: 'expo.out' }, 0.2)
-      .from('.nav', { yPercent: -100, opacity: 0, duration: 1, ease: 'expo.out' }, 0.5);
+      .from('.nav', { yPercent: -100, opacity: 0, duration: 1, ease: 'expo.out', clearProps: 'all' }, 0.5);
     return tl;
   }
 

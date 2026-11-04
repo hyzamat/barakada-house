@@ -11,6 +11,7 @@ import { initStory } from './story.js';
 import { initTray } from './tray.js';
 import { initReserve } from './reserve.js';
 import { initQr } from './qr.js';
+import { initScore } from './score.js';
 
 const reduce = mq.reduce.matches;
 
@@ -63,6 +64,7 @@ function boot() {
   magnetic();
   footer();
   polish();
+  initScore();
 
   runLoader(hero);
   document.fonts?.ready.then(() => ScrollTrigger.refresh());
