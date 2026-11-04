@@ -1,9 +1,12 @@
 // Reservation form. Builds a booking request the guest sends via WhatsApp, plus a calendar file.
 // To use your own booking system instead, replace the body of `submit()` with a fetch() to it.
 import { INFO, byId, clipOf } from './data.js';
-import { $, $$, el, haptic, personIcons, plateSrc, money, scroller } from './util.js';
+import { $, $$, el, icon, haptic, personIcons, plateSrc, money, scroller } from './util.js';
 
-const OCCASIONS = ['Birthday', 'Barkada reunion', 'Date night', 'Celebration', 'Just because'];
+const OCCASIONS = ['Birthday', 'Iftar', 'Barkada reunion', 'Date night', 'Celebration', 'Just because'];
+const BOOKING_DAYS = 30;
+// Earliest and latest time a guest can pick with "Other time".
+const OPEN = '12:00', LAST = '23:30';
 const SLOTS = {
   Lunch: ['12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00'],
   Dinner: ['19:00', '19:30', '20:00', '20:30', '21:00', '21:30', '22:00', '22:30', '23:00'],
@@ -31,9 +34,9 @@ export function initReserve() {
   $$('[data-party]', form).forEach((b) => b.addEventListener('click', () => { haptic(6); setParty(s.party + +b.dataset.party); }));
   setParty(4);
 
-  // Dates (next 14 days)
+  // Dates: the next BOOKING_DAYS days in one scrolling row, with arrows that jump a week
   const dates = $('[data-dates]', form);
-  for (let i = 0; i < 14; i++) {
+  for (let i = 0; i < BOOKING_DAYS; i++) {
     const d = new Date();
     d.setHours(0, 0, 0, 0);
     d.setDate(d.getDate() + i);
@@ -44,6 +47,16 @@ export function initReserve() {
     b.setAttribute('aria-label', longFmt.format(d));
     dates.append(b);
   }
+  const weekNav = el('div', 'dates__nav', `<button type="button" class="round" data-week="-1" aria-label="Previous week">${icon('arrow')}</button><button type="button" class="round" data-week="1" aria-label="Next week">${icon('arrow')}</button>`);
+  const legend = $('legend', dates.closest('fieldset'));
+  legend.classList.add('dates__legend');
+  legend.append(weekNav);
+  weekNav.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-week]');
+    if (!b) return;
+    const chip = $('.date', dates);
+    dates.scrollBy({ left: (chip.offsetWidth + 8) * 7 * +b.dataset.week, behavior: 'smooth' });
+  });
   dates.addEventListener('click', (e) => {
     const b = e.target.closest('.date');
     if (!b) return;
@@ -53,25 +66,60 @@ export function initReserve() {
     renderTimes();
   });
 
-  // Times
+  // Times: fixed lunch and dinner slots, plus "Other time" for any time (e.g. Iftar at sunset)
   const times = $('[data-times]', form);
-  function renderTimes() {
+  const ALL_SLOTS = Object.values(SLOTS).flat();
+  // Today, times less than an hour away can't be booked.
+  const tooSoon = (t) => {
     const now = new Date();
-    const isToday = s.date && s.date.toDateString() === now.toDateString();
+    if (!s.date || s.date.toDateString() !== now.toDateString()) return false;
+    const [h, m] = t.split(':').map(Number);
+    return h * 60 + m < now.getHours() * 60 + now.getMinutes() + 60;
+  };
+  function renderTimes() {
+    if (s.time && tooSoon(s.time)) s.time = null;
+    const custom = s.time && !ALL_SLOTS.includes(s.time) ? s.time : '';
     times.innerHTML = Object.entries(SLOTS).map(([label, slots]) => `
       <div class="times__group"><p>${label}</p><div class="times__grid">${slots.map((t) => {
-        const [h, m] = t.split(':').map(Number);
-        const past = isToday && h * 60 + m < now.getHours() * 60 + now.getMinutes() + 60;
-        return `<button type="button" class="time" data-time="${t}" aria-pressed="${s.time === t && !past}" ${past ? 'disabled' : ''}>${t}</button>`;
-      }).join('')}</div></div>`).join('');
-    if ($(`.time[data-time="${s.time}"]:disabled`, times)) s.time = null;
+        const past = tooSoon(t);
+        return `<button type="button" class="time" data-time="${t}" aria-pressed="${s.time === t}" ${past ? 'disabled' : ''}>${t}</button>`;
+      }).join('')}</div></div>`).join('') + `
+      <div class="times__group"><p>Other time</p>
+        <label class="time time--custom${custom ? ' is-on' : ''}">
+          <span>Choose your own</span>
+          <input type="time" min="${OPEN}" max="${LAST}" step="900" value="${custom}" data-custom-time aria-label="Choose another time">
+        </label>
+      </div>`;
   }
   times.addEventListener('click', (e) => {
-    const b = e.target.closest('.time');
+    const b = e.target.closest('.time[data-time]');
     if (!b || b.disabled) return;
     haptic(5);
-    $$('.time', times).forEach((x) => x.setAttribute('aria-pressed', x === b));
+    $$('.time[data-time]', times).forEach((x) => x.setAttribute('aria-pressed', x === b));
+    const custom = $('[data-custom-time]', times);
+    custom.value = '';
+    custom.closest('.time--custom').classList.remove('is-on');
     s.time = b.dataset.time;
+  });
+  times.addEventListener('change', (e) => {
+    const input = e.target.closest('[data-custom-time]');
+    if (!input) return;
+    const label = input.closest('.time--custom');
+    const v = input.value;
+    err.textContent = '';
+    const reject = (msg) => {
+      err.textContent = msg;
+      input.value = '';
+      label.classList.remove('is-on');
+      if (!ALL_SLOTS.includes(s.time)) s.time = null;
+    };
+    if (!v) return reject('');
+    if (v < OPEN || v > LAST) return reject(`We take bookings between ${OPEN} and ${LAST}.`);
+    if (tooSoon(v)) return reject('Pick a time at least an hour from now.');
+    haptic(5);
+    $$('.time[data-time]', times).forEach((x) => x.setAttribute('aria-pressed', 'false'));
+    label.classList.add('is-on');
+    s.time = v;
   });
   $('.date', dates).click();
 

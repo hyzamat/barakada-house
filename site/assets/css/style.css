@@ -847,7 +847,17 @@ svg use { pointer-events: none; }
 
 .scroller { display: flex; gap: .5rem; overflow-x: auto; scrollbar-width: none; scroll-snap-type: x mandatory; margin-inline: -1.4rem; padding: 4px 1.4rem; }
 .scroller::-webkit-scrollbar { display: none; }
-@media (min-width: 900px) { .scroller { margin-inline: 0; padding-inline: 2px; flex-wrap: wrap; } }
+@media (min-width: 900px) { .scroller { margin-inline: 0; padding-inline: 2px; } }
+.book__group legend.dates__legend { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+.dates__nav { display: flex; gap: .4rem; margin-block: -.4rem; }
+.dates__nav .round { width: 36px; height: 36px; }
+.dates__nav .round svg { width: 16px; height: 16px; }
+.dates__nav [data-week="-1"] svg { transform: scaleX(-1); }
+.time--custom { display: inline-flex; align-items: center; gap: .7rem; padding: 0 .6rem 0 1rem; cursor: pointer; }
+.time--custom span { font-weight: 650; }
+.time--custom input { min-height: 34px; padding: 0 .5rem; border: 0; border-radius: 10px; background: rgba(243, 234, 219, .08); color: inherit; font: 650 .92rem/1 var(--sans); color-scheme: dark; }
+.time--custom.is-on { background: var(--cream); color: var(--ink); box-shadow: none; }
+.time--custom.is-on input { background: rgba(12, 9, 7, .08); color-scheme: light; }
 .date {
   flex: none; width: 64px; padding: .7rem 0;
   border-radius: 18px;
