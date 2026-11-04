@@ -236,6 +236,13 @@ function cursor() {
   document.documentElement.classList.add('has-cursor');
   const c = el('div', 'cursor', '<div class="cursor__ring"><span></span></div><div class="cursor__dot"></div>');
   document.body.append(c);
+  // An open modal dialog sits in the browser's top layer, above everything on the page, so the
+  // cursor moves into it while it's open (otherwise it hides behind the popup).
+  const rehome = new MutationObserver((records) => records.forEach(({ target: d }) => {
+    if (d.open) d.append(c);
+    else if (d.contains(c)) (document.querySelector('dialog[open]') || document.body).append(c);
+  }));
+  document.querySelectorAll('dialog').forEach((d) => rehome.observe(d, { attributes: true, attributeFilter: ['open'] }));
   const ring = c.firstElementChild, dot = c.lastElementChild, label = ring.firstElementChild;
   const rx = gsap.quickTo(ring, 'x', { duration: 0.55, ease: 'power3' });
   const ry = gsap.quickTo(ring, 'y', { duration: 0.55, ease: 'power3' });
