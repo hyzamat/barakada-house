@@ -1,7 +1,7 @@
 {
   "name": "Barkada House",
   "short_name": "Barkada",
-  "description": "Filipino kitchen & charcoal grill. Feasts made for sharing.",
+  "description": "Kitchen & charcoal grill. Feasts made for sharing.",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#0c0907",
