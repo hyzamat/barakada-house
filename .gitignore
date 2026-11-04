@@ -1,6 +1,7 @@
 # Keep the raw source footage folders out of git; only the site, its launcher and tools are tracked.
 /*
 !/.gitignore
+!/.github/
 !/site/
 !/tools/
 !/Start Barkada House.bat
